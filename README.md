@@ -70,7 +70,7 @@ Shutdown VM
 # Save
 Save current VM state
 
-[Thx MILOSZ](https://blog.sleeplessbeastie.eu/2013/07/23/virtualbox-how-to-control-virtual-machine-using-command-line/)
-
 # Install / Uninstall
 This command must be run from root. After script run with parameter "-i" script will be installed to folder /usr/bin, after run script with parameter "-u", script will be deleted from folder /usr/bin.
+
+[Thx MILOSZ](https://blog.sleeplessbeastie.eu/2013/07/23/virtualbox-how-to-control-virtual-machine-using-command-line/)
