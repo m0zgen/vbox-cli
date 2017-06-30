@@ -69,3 +69,5 @@ Shutdown VM
 
 # Save
 Save current VM state
+
+[Thx MILOSZ](https://blog.sleeplessbeastie.eu/2013/07/23/virtualbox-how-to-control-virtual-machine-using-command-line/)
