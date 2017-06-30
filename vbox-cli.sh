@@ -39,7 +39,7 @@ function usage() {
 
     echo -e "" \
     "$SCRIPTNAME -show | --show-vm\n" \
-    "$SCRIPTNAME -states | --show-vm-states\n" \
+    "$SCRIPTNAME -status | --show-vm-status\n" \
     "$SCRIPTNAME -running | --show-vm-running\n" \
     "$SCRIPTNAME -start | --start-vm [vmname]\n" \
     "$SCRIPTNAME -start-hidden | --start-vm-hidden [vmname]\n" \
@@ -51,12 +51,13 @@ function usage() {
     "$SCRIPTNAME -save | --save-vm [vmname]\n"
 }
 
+# VM Statuses
 function show-vm(){
   VBoxManage list vms | sed "s/\"\(.*\)\".*/\1/"
   End
 }
 
-function show-vm-states(){
+function show-vm-status(){
   VBoxManage list vms -l | grep -e ^Name: -e ^State  | sed "s/Name:[ ]*\(.*\)/\1 \//;s/State:[\ ]*//" | paste -d " " - -
 }
 
@@ -64,6 +65,8 @@ function show-vm-running(){
   VBoxManage list runningvms
 }
 
+# VM Operations
+#
 function start-vm(){
 
   if [[ -z "$1" ]]; then
@@ -96,34 +99,54 @@ function start-vm-simple-gui(){
 
 function pause-vm(){
 
-  End
+  if [[ -z "$1" ]]; then
+    Warning "Please determine [vmname]"
+  else
+    VBoxManage controlvm $1 pause
+  fi
 
 }
 
 function resume-vm(){
-  End
+
+  if [[ -z "$1" ]]; then
+    Warning "Please determine [vmname]"
+  else
+    VBoxManage controlvm $1 resume
+  fi
+
 }
 
 function reset-vm(){
-  End
+
+  if [[ -z "$1" ]]; then
+    Warning "Please determine [vmname]"
+  else
+    VBoxManage controlvm $1 reset
+  fi
+
 }
 
 function poweroff-vm(){
-  End
+  if [[ -z "$1" ]]; then
+    Warning "Please determine [vmname]"
+  else
+    VBoxManage controlvm $1 poweroff
+  fi
 }
 
 function save-vm(){
-  End
+  if [[ -z "$1" ]]; then
+    Warning "Please determine [vmname]"
+  else
+    VBoxManage controlvm $1 savestate
+  fi
 }
-
-# ---------------------------------------------------------- ACTION #
-
-
 
 # ---------------------------------------------------------- CHECK ARGS #
 if [[ -z $1 ]]; then
   find-vbox
-  Warning "Please see help: $SCRIPTNAME --help"
+  usage
   End
   exit
 fi
@@ -134,8 +157,8 @@ while [ "$1" != "" ]; do
         -show | --show-vm )                       shift
                                                   show-vm
                                                   ;;
-        -states | --show-vm-states )              shift
-                                                  show-vm-states
+        -status | --show-vm-status )              shift
+                                                  show-vm-status
                                                   ;;
         -running | --show-vm-running )            shift
                                                   show-vm-running
@@ -149,22 +172,26 @@ while [ "$1" != "" ]; do
         -start-simple | --start-vm-simple-gui )   shift
                                                   start-vm-simple-gui $1
                                                   ;;
-        -f | --file )           shift
-                                filename=$1
-                                ;;
-        -f | --file )           shift
-                                filename=$1
-                                ;;
-        -f | --file )           shift
-                                filename=$1
-                                ;;
-        -i | --interactive )    interactive=1
-                                ;;
-        -h | --help )           usage
-                                exit
-                                ;;
-        * )                     usage
-                                exit 1
+        -pause | --pause-vm )                     shift
+                                                  pause-vm $1
+                                                  ;;
+        -resume | --resume-vm )                   shift
+                                                  resume-vm $1
+                                                  ;;
+        -reset | --reset-vm )                     shift
+                                                  reset-vm $1
+                                                  ;;
+        -off | --poweroff-vm )                     shift
+                                                  poweroff-vm $1
+                                                  ;;
+        -save | --save-vm )                       shift
+                                                  save-vm $1
+                                                  ;;
+        -h | --help )                             usage
+                                                  exit
+                                                  ;;
+        * )                                       usage
+                                                  exit 1
     esac
     shift
 done
