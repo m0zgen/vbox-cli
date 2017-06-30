@@ -1,7 +1,7 @@
 # Vbox-cli
 Simple management tool for VirtualBox machines on Fedora / CentOS
 
-#Usage
+# Usage
 If You run script without parameters, You see help, how to usage this script.
 ```
  vbox-cli.sh -show | --show-vm
@@ -17,17 +17,17 @@ If You run script without parameters, You see help, how to usage this script.
  vbox-cli.sh -save | --save-vm [vmname]
 
 ```
-#Show
+# Show
 ```
 -show | --show-vm
 ```
 Show all created VM
 
-#Status
+# Status
 ```
 -status | --show-vm-status
 ```
-Show VM statuses:
+Show VM statuses. Example:
 ```
 ./vbox-cli.sh -status
 cent01 / powered off (since 2017-06-30T19:20:03.939000000)
@@ -38,12 +38,12 @@ kali / powered off (since 2017-05-23T19:04:18.000000000)
 fedora / powered off (since 2017-06-30T19:16:16.538000000)
 ```
 
-#Show running VM
+# Show running VM
 ```
 -running | --show-vm-running
 ```
 
-#Start VM
+# Start VM
 ```
 -start | --start-vm [vmname]
 ```
@@ -52,20 +52,20 @@ Example:
 vbox-cli.sh -start cent01
 ```
 
-#Start Hidden
+# Start Hidden
 Start VM in background without GUI windows
 
-#Start simple
+# Start simple
 Start VM in simple window without control buttons and menus
 
-#Pause / Resume
+# Pause / Resume
 Pause VM / Resum VM
 
-#Reset
+# Reset
 Fast reset (reboot) VM
 
-#Poweroff
+# Poweroff
 Shutdown VM
 
-#Save
+# Save
 Save current VM state
