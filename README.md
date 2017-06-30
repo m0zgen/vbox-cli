@@ -1,6 +1,8 @@
 # Vbox-cli
 Simple management tool for VirtualBox machines on Fedora / CentOS
 
+[Russian article in my Blog](https://sys-adm.in/virtualization/720-upravlenie-mashinami-virtualbox-iz-terminala.html)
+
 # Usage
 If You run script without parameters, You see help, how to usage this script.
 ```
