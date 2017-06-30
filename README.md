@@ -59,7 +59,7 @@ Start VM in background without GUI windows
 Start VM in simple window without control buttons and menus
 
 # Pause / Resume
-Pause VM / Resum VM
+Pause VM / Resume VM
 
 # Reset
 Fast reset (reboot) VM
