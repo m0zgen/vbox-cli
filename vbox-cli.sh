@@ -48,7 +48,9 @@ function usage() {
     "$SCRIPTNAME -resume | --resume-vm [vmname]\n" \
     "$SCRIPTNAME -reset | --reset-vm [vmname]\n" \
     "$SCRIPTNAME -off | --poweroff-vm [vmname]\n" \
-    "$SCRIPTNAME -save | --save-vm [vmname]\n"
+    "$SCRIPTNAME -save | --save-vm [vmname]\n" \
+    "$SCRIPTNAME -i | --install\n" \
+    "$SCRIPTNAME -u | --uninstall\n"
 }
 
 # VM Statuses
@@ -143,6 +145,39 @@ function save-vm(){
   fi
 }
 
+# Install
+#
+function install(){
+  if [ "$(id -u)" != "0" ]; then
+    Error "This script must be run as root" 1>&2
+    exit 1
+  else
+    if [[ -f /usr/bin/$SCRIPTNAME ]]; then
+        Warning "Script already installed. Uninstall first."
+      else
+        cp $SCRIPTPATH/$SCRIPTNAME /usr/bin/
+        Info "Script installed to folder /usr/bin/$SCRIPTNAME"
+    fi
+  fi
+}
+
+# Uninstall
+#
+function uninstall(){
+  if [ "$(id -u)" != "0" ]; then
+    Error "This script must be run as root" 1>&2
+    exit 1
+  else
+    if [[ -f /usr/bin/$SCRIPTNAME ]]; then
+        rm /usr/bin/$SCRIPTNAME
+        Info "Script removed from folder /usr/bin/$SCRIPTNAME. Done!"
+      else
+        Warning "Script not installed!"
+    fi
+
+  fi
+}
+
 # ---------------------------------------------------------- CHECK ARGS #
 if [[ -z $1 ]]; then
   find-vbox
@@ -186,6 +221,12 @@ while [ "$1" != "" ]; do
                                                   ;;
         -save | --save-vm )                       shift
                                                   save-vm $1
+                                                  ;;
+        -i | --install )                          shift
+                                                  install
+                                                  ;;
+        -u | --uninstall )                        shift
+                                                  uninstall
                                                   ;;
         -h | --help )                             usage
                                                   exit
